@@ -1,7 +1,8 @@
 #!/bin/env python
 
 import urllib,time, datetime
-
+from dateutil.parser import parse
+from dateutil.relativedelta import relativedelta
 try:
     import lxml.etree as etree
 except:
@@ -59,10 +60,7 @@ class bustime (object):
         else:   print "Must pass a rt or vid or stpid"
         predictions = [a for a in _pulldata(self.baseurl, request, params)]
         for pr in predictions:
-            d = datetime.datetime.strptime(pr["prdtm"],"%Y%m%d %H:%M")
-            mins = int(d.strftime("%M")) + int(d.strftime("%H")) * 60
-            now = int(d.now().strftime("%M")) + int(d.now().strftime("%H")) * 60
-            pr.diff = abs(mins - now) % 1440
+	    pr['diff'] = relativedelta(parse(a['prdtm']), parse(a['tmstmp'])).minutes
         return predictions
 
 
