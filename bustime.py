@@ -61,7 +61,7 @@ class bustime (object):
         predictions = [a for a in _pulldata(self.baseurl, request, params)]
         for pr in predictions:
 	    minutes = relativedelta(parse(a['prdtm']), parse(a['tmstmp'])).minutes
-	    pr['diff'] = 'Approaching' if minutes == 0 else minutes
+	    pr['diff'] = 'Approaching' if minutes == 0 else "%s Minutes" % minutes
         return predictions
 
     def getservicebulletins(self, stpid='', rt='',rtdir='', top='', **kwargs):
