@@ -60,7 +60,8 @@ class bustime (object):
         else:   print "Must pass a rt or vid or stpid"
         predictions = [a for a in _pulldata(self.baseurl, request, params)]
         for pr in predictions:
-	    pr['diff'] = relativedelta(parse(a['prdtm']), parse(a['tmstmp'])).minutes
+	    minutes = relativedelta(parse(a['prdtm']), parse(a['tmstmp'])).minutes
+	    pr['diff'] = 'Approaching' if minutes == 0 else minutes
         return predictions
 
 
