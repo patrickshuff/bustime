@@ -64,7 +64,6 @@ class bustime (object):
 	    pr['diff'] = 'Approaching' if minutes == 0 else minutes
         return predictions
 
-
     def getservicebulletins(self, stpid='', rt='',rtdir='', top='', **kwargs):
         """This modules will get vehicle information by route(rt) or by vehicle id (rtdir).  The routes can be either a list of comma-delimeted string"""
         params = {"key": self.apikey}
