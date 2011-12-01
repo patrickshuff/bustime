@@ -95,7 +95,10 @@ class bustime (object):
             params["rt"] = rt
         if dir:  params["dir"] = dir
         else:   print "Must pass a rt and a dir"
-        return [a for a in _pulldata(self.baseurl, request, params)]
+        stops = [a for a in _pulldata(self.baseurl, request, params)]
+	for stop in stops:
+	    stop['loc'] = [float(stop['lon']), float(stop['lat'])]
+	return stops
 
     def getpatterns(self,rt='',pid='', **kwargs):
         """This modules will get vehicle information by route(rt) or by vehicle id (vid).  The routes can be either a list of comma-delimeted string"""
